@@ -1,0 +1,66 @@
+# ==============================
+# PYTHON
+# ==============================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# ==============================
+# SECRETS / CREDENTIALS
+# ==============================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+service-account.json
+secrets.json
+
+# ==============================
+# GOOGLE COLAB
+# ==============================
+.ipynb_checkpoints/
+
+# ==============================
+# DATASETS
+# ==============================
+data/
+dataset/
+datasets/
+RDD2022/
+RDD2022_*/
+*.zip
+*.tar
+*.tar.gz
+
+# ==============================
+# MODEL WEIGHTS
+# ==============================
+*.pt
+*.pth
+*.onnx
+*.ckpt
+*.safetensors
+
+# ==============================
+# TRAINING OUTPUTS
+# ==============================
+runs/
+weights/
+outputs/
+checkpoints/
+training_results/
+
+# ==============================
+# LOGS
+# ==============================
+*.log
+
+# ==============================
+# OS
+# ==============================
+.DS_Store
+Thumbs.db
