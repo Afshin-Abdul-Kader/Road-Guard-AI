@@ -16,7 +16,13 @@ const { data, error, loading, reload } = useAsync(
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState(null)
 
-  if (loading) return <Scanner title="Loading the job sheet" note={`Task ${params.id}`} />
+  if (loading) return (
+  <Scanner
+    title="Loading the job sheet"
+    note={`Task ${taskId}`}
+  />
+)
+
   if (error) return <ErrorNote error={error} onRetry={reload} />
 
   async function start() {
