@@ -1,0 +1,10 @@
+__pycache__/
+.venv/
+venv/
+roadguard.db
+uploads/*
+!uploads/.gitkeep
+*.pt
+*.pth
+*.onnx
+.env

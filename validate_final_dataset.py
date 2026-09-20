@@ -42,7 +42,7 @@ for name, (image_dir, label_dir) in SETS.items():
     print(f"Labels : {len(labels)}")
 
     print(f"Missing labels : {len(missing_labels)}")
-    print(f"Orphan labels  : {len(orphan_labels)}")
+    print(f"Orphan labels  : {len(orphan_labels)}") 
 
     if missing_labels:
         print("\nExample missing labels:")
