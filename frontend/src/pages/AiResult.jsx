@@ -50,7 +50,7 @@ export default function AiResult({ go, params }) {
         {url && <img className="preview preview--sm" src={url} alt="The road damage you reported" />}
 
         <div style={{ marginTop: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
-          <div className="result__type">{detection.issue_type}</div>
+          <div className="result__type">{detection.defect}</div>
           <SeverityBadge value={detection.severity} />
         </div>
 

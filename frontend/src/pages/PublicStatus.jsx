@@ -46,9 +46,9 @@ export default function PublicStatus({ go, params }) {
             ['Status', <StatusBadge value={data.status} />],
             ['Reported on', data.reported_at],
             [
-              'Expected fix',
-              data.status === 'COMPLETED' ? 'Done' : `${data.expected_fix_days} days`,
-            ],
+  'Expected fix',
+  data.status === 'COMPLETED' ? 'Done' : `${data.estimated_fix_days} days`,
+],
           ]}
         />
 

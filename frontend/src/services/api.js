@@ -51,7 +51,7 @@ export const api = {
   detect(file) {
     if (USE_MOCK) return mockBackend.detect(file)
     const body = new FormData()
-    body.append('image', file)
+    body.append('file', file)
     return request('/api/detect', { method: 'POST', body })
   },
 
@@ -85,14 +85,30 @@ export const api = {
    * Assignment reuses this endpoint with status ASSIGNED plus a worker field,
    * rather than inventing a new route. Confirm the field name with backend.
    */
-  updateTaskStatus(taskId, { status, worker }) {
-    if (USE_MOCK) return mockBackend.updateTaskStatus(taskId, { status, worker })
-    return request(`/api/tasks/${taskId}/status`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(worker ? { status, worker } : { status }),
+  updateTaskStatus(taskId, { status }) {
+  if (USE_MOCK) return mockBackend.updateTaskStatus(taskId, { status })
+
+  return request(`/api/tasks/${taskId}/status`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status }),
+  })
+},
+
+assignTask(taskId, worker_name) {
+  if (USE_MOCK) {
+    return mockBackend.updateTaskStatus(taskId, {
+      status: 'ASSIGNED',
+      worker: worker_name,
     })
-  },
+  }
+
+  return request(`/api/tasks/${taskId}/assign`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ worker_name }),
+  })
+},
 
   /** Screen 9 — completion photo + notes. */
   completeTask(taskId, { file, description }) {

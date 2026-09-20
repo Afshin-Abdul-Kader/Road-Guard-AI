@@ -16,6 +16,7 @@ export default function WorkerTasks({ go, session, onChangeWorker }) {
 
       <div className="field" style={{ maxWidth: '260px' }}>
         <label htmlFor="crew">Signed in as</label>
+
         <select
           id="crew"
           value={session.worker}
@@ -30,29 +31,59 @@ export default function WorkerTasks({ go, session, onChangeWorker }) {
       </div>
 
       <ErrorNote error={error} onRetry={reload} />
-      {loading && <Scanner title="Loading your tasks" note="Fetching assignments from the ward office." />}
 
-      {!loading && data?.length === 0 && (
+      {loading && (
+        <Scanner
+          title="Loading your tasks"
+          note="Fetching assignments from the ward office."
+        />
+      )}
+
+      {!loading && data?.tasks?.length === 0 && (
         <div className="card empty">
-          Nothing assigned right now. New work will appear here as the councilor sends it.
+          Nothing assigned right now. New work will appear here as the
+          councilor sends it.
         </div>
       )}
 
-      {data?.map((task) => (
-        <button key={task.task_id} className="rank-item" onClick={() => go('worker.task', { id: task.task_id })}>
-          <span className="rank-item__body">
-            <span className="rank-item__name">{task.issue_type} repair</span>
-            <span className="rank-item__meta">
-              {task.location}, {task.area}
+      {!loading &&
+        data?.tasks?.map((task) => (
+          <button
+            key={task.id}
+            className="rank-item"
+            onClick={() =>
+              go('worker.task', {
+                taskId: task.id,
+                reportId: task.report_id,
+              })
+            }
+          >
+            <span className="rank-item__body">
+              <span className="rank-item__name">
+                {task.issue_type} repair
+              </span>
+
+              <span className="rank-item__meta">
+                {task.location}, {task.area}
+              </span>
+
+              <span
+                style={{
+                  display: 'flex',
+                  gap: '0.5rem',
+                  marginTop: '0.6rem',
+                }}
+              >
+                <SeverityBadge value={task.priority} />
+                <StatusBadge value={task.status} />
+              </span>
             </span>
-            <span style={{ display: 'flex', gap: '0.5rem', marginTop: '0.6rem' }}>
-              <SeverityBadge value={task.priority} />
-              <StatusBadge value={task.status} />
+
+            <span className="btn btn--quiet btn--sm">
+              View work
             </span>
-          </span>
-          <span className="btn btn--quiet btn--sm">View work</span>
-        </button>
-      ))}
+          </button>
+        ))}
     </>
   )
 }

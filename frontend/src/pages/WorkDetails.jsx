@@ -6,8 +6,13 @@ import { SeverityBadge, StatusBadge } from '../components/Badge'
 import { Rows, Scanner, ErrorNote } from '../components/Ui'
 
 export default function WorkDetails({ go, params }) {
-  const reportId = params.id.replace(/^T-/, '')
-  const { data, error, loading, reload } = useAsync(() => api.getReport(reportId), [reportId])
+ const reportId = params.reportId
+const taskId = params.taskId
+
+const { data, error, loading, reload } = useAsync(
+  () => api.getReport(reportId),
+  [reportId],
+)
   const [busy, setBusy] = useState(false)
   const [actionError, setActionError] = useState(null)
 
@@ -18,7 +23,7 @@ export default function WorkDetails({ go, params }) {
     setBusy(true)
     setActionError(null)
     try {
-      await api.updateTaskStatus(params.id, { status: 'IN_PROGRESS' })
+      await api.updateTaskStatus(taskId, { status: 'IN_PROGRESS' })
       reload()
     } catch (e) {
       setActionError(e.message || 'Could not update the status.')
@@ -80,7 +85,13 @@ export default function WorkDetails({ go, params }) {
             <button
               className="btn btn--ghost"
               disabled={data.status !== 'IN_PROGRESS'}
-              onClick={() => go('worker.complete', { id: params.id, issue: data })}
+              onClick={() =>
+  go('worker.complete', {
+    id: taskId,
+    reportId,
+    issue: data,
+  })
+}
             >
               Mark completed
             </button>
