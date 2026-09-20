@@ -11,7 +11,7 @@ from priority import calculate_priority
 app = FastAPI(title="RoadGuard AI MVP", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173","https://roadguardaidemo.netlify.app",],
     allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
 )
 UPLOAD_DIR = Path(__file__).parent / "uploads"
